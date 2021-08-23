@@ -1,0 +1,36 @@
+﻿namespace TodoApi210823.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class TodoController : ControllerBase
+    {
+        Member[] members = new Member[]
+        {
+            new Member { Id = 1, Name = "Tomato Soup", Category = "Groceries", Price = 1 },
+            new Member { Id = 2, Name = "Yo-yo", Category = "Toys", Price = 3.75M },
+            new Member { Id = 3, Name = "Hammer", Category = "Hardware", Price = 16.99M }
+        };
+
+        [HttpGet]
+        public IEnumerable<Member> GetAllProducts()
+        {
+            return members;
+        }
+
+        [HttpGet("{id}")]
+        public ActionResult<Member> GetProduct(int id)
+        {
+            var member = members.FirstOrDefault((p) => p.Id == id);
+            if (member == null)
+            {
+                return NotFound();
+            }
+            return member;
+        }
+
+
+
+
+    }
+}
+
